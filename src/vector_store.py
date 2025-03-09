@@ -14,7 +14,7 @@ class VectorStore:
         os.makedirs(self.index_dir, exist_ok=True)
     
     def create_vector_store(self, documents: List[Document]):
-        '''从文档创建向量存储'''
+        '''Create vector from documents'''
         if not documents:
             raise ValueError("No documents provided to create vector store")
         
@@ -30,7 +30,6 @@ class VectorStore:
             raise ValueError(f"Unsupported vector database type: {self.db_type}")
     
     def save_vector_store(self, vector_store):
-        '''保存向量存储到磁盘'''
         if self.db_type == "faiss":
             vector_store.save_local(os.path.join(self.index_dir, "faiss_index"))
             print(f"Vector store saved to {os.path.join(self.index_dir, 'faiss_index')}")
@@ -39,7 +38,7 @@ class VectorStore:
             print(f"Vector store persisted to {os.path.join(self.index_dir, 'chroma_db')}")
     
     def load_vector_store(self):
-        '''从磁盘加载向量存储'''
+        '''Load vectors'''
         if self.db_type == "faiss":
             index_path = os.path.join(self.index_dir, "faiss_index")
             if not os.path.exists(index_path):
