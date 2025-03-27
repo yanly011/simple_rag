@@ -1,6 +1,7 @@
 import os
 import argparse
 from typing import List, Dict, Any
+import dotenv
 
 from src.document_loader import DocumentLoader
 from src.text_splitter import TextSplitter
@@ -105,10 +106,11 @@ def main():
     parser.add_argument('--top_k', type=int, default=5, help='Number of results to return')
     
     args = parser.parse_args()
+
+    dotenv.load_dotenv()
     
-    if "OPENAI_API_KEY" not in os.environ:
-        api_key = input("Input your OpenAI API key: ")
-        os.environ["OPENAI_API_KEY"] = api_key
+    if not os.environ.get("OPENAI_API_KEY"):
+        raise ValueError("No OPENAI_API_KEY!")
     
     if args.mode == 'build':
         build_index()

@@ -43,7 +43,7 @@ class VectorStore:
             index_path = os.path.join(self.index_dir, "faiss_index")
             if not os.path.exists(index_path):
                 raise FileNotFoundError(f"FAISS index not found at {index_path}")
-            return FAISS.load_local(index_path, self.embedding_model)
+            return FAISS.load_local(index_path, self.embedding_model, allow_dangerous_deserialization = True)
         elif self.db_type == "chroma":
             db_path = os.path.join(self.index_dir, "chroma_db")
             if not os.path.exists(db_path):
