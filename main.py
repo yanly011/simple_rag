@@ -45,6 +45,17 @@ def query_index(query: str, top_k=5):
     
     return similar_docs
 
+def build_knowledge_graph():
+    loader = DocumentLoader()
+    documents = loader.load_all_documents()
+    graph = loader.build_knowledge_graph(documents)
+    print("Finish knowledge graph.")
+    return graph
+
+def query_knowledge_graph(query):
+    """Query through knowledge graph"""
+    pass
+
 def rag_qa(query: str):
     embedding_model = EmbeddingFactory.get_embeddings()
     vector_store_handler = VectorStore(embedding_model)

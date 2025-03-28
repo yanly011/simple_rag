@@ -8,6 +8,7 @@ from langchain_community.document_loaders import (
     CSVLoader,
     UnstructuredExcelLoader
 )
+from knowledge_graph_extractor import KnowledgeGraphExtractor
 
 import config
 
@@ -63,3 +64,14 @@ class DocumentLoader:
         
         print(f"Loaded {len(documents)} documents")
         return documents
+    
+    def build_knowledge_graph(self, documents):
+        """Build Knowledge Graph"""
+        graph = self.kg_extractor.build_graph(documents)
+        
+        # Saved
+        graph_json = self.kg_extractor.serialize_graph(graph)
+        with open('knowledge_graph.json', 'w', encoding='utf-8') as f:
+            f.write(graph_json)
+        
+        return graph

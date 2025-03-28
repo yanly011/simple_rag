@@ -9,3 +9,5 @@ pypdf
 pandas
 tqdm
 python-dotenv
+spacy
+matplotlib
